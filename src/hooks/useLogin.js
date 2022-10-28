@@ -19,7 +19,7 @@ export const useLogin=()=>{
         setpending(true)
         try {
          const res=   await projectauth.signInWithEmailAndPassword(email,password)
-         console.log(res)
+       
 
             if(res.user){
                 dispatch({type:'LOGIN',payload:res.user})
@@ -43,7 +43,6 @@ export const useLogin=()=>{
         } catch (error) {
             if(!cancelled){
 
-            console.log(error.message)
             seterror(error.message)
             setpending(false)}
             

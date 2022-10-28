@@ -1,5 +1,5 @@
 import { useReducer,useState,useEffect } from "react";
-import {projectfirestore,timestamp,timestamp} from '../firebase/config'
+import {projectfirestore,timestamp} from '../firebase/config'
 
 
 
@@ -13,11 +13,13 @@ const initialstate={
 const firestoreReducer=(state,action)=>{
     switch(action.type){
         case 'IS_PENDING':
-            return {docment:null,ispending:true,success:null,error:null}
+            return {document:null,ispending:true,success:null,error:null}
         case 'ADD_DOCUMENT':
-                return {...state,docment:action.payload,ispending:false,success:true}
+            return {...state,document:action.payload,ispending:false,success:true}
+            case 'DELETED_DOCUMENT':
+                return {...state,document:null,ispending:false,success:true}
         case 'ERROR_MESSAGE':
-                    return {...state,docment:null,ispending:false,success:null,error:action.payload}
+            return {...state,document:null,ispending:false,success:null,error:action.payload}
 
         default:
             return state
@@ -56,6 +58,24 @@ export const useFirestore=(colllection)=>{
     }
 
     const deletedocument=async(id)=>{
+
+        dispatch({type:'IS_PENDING'})
+        try {
+
+          const deletedref=  await ref.doc(id).delete()
+            dispatchIfNotCancelled({type:'DELETED_DOCUMENT',payload:deletedref})
+
+
+
+            
+        } catch (error) {
+
+            dispatchIfNotCancelled({type:'ERROR_MESSAGE',payload:error.message})
+
+            
+        }
+
+
         
     }
 

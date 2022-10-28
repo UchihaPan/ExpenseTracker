@@ -1,20 +1,36 @@
-import React from 'react'
+import React, { useReducer } from 'react'
 
 import './Home.css'
 import Transactionform from './Transactionform'
+import TransactionList from './TransactionList'
 
-function home() {
+import {useAuthcontext} from '../hooks/useAuthcontext'
+import {useCollection} from '../hooks/useCollection'
+
+
+
+function Home() {
+  const context=useAuthcontext()
+  const {user,dispatch}=context
+  const collection=useCollection('transactions',["uid","==",user.uid],["created_at","desc"])
+
+  const {documents,error}=collection
+  
+
   return (
     <div className="container">
       <div className="content">
-        transaction-list
+       { error && <p>{error}</p>} 
+       {documents.length <1 && <li>Nothing on your portfolio....</li>}
+       { documents && <TransactionList documents={documents}/>}
        
       </div>
       <div className="sidebar">
-      <Transactionform/>
+    
+      <Transactionform uid={user.uid}/>
       </div>
     </div>
   )
 }
 
-export default home
+export default Home

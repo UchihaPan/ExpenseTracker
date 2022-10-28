@@ -42,7 +42,6 @@ export const useSignup=()=>{
 
             if(!cancelled){
 
-                console.log(error.message)
                 seterror(error.message)
                 setpending(false)}
 

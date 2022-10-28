@@ -28,7 +28,6 @@ export const useLogout=()=>{
         } catch (error) {
             if(!cancelled){
 
-            console.log(error.message)
             seterror(error.message)
             setpending(false)}
             

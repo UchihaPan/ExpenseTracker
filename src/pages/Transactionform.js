@@ -1,16 +1,27 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
+import {useFirestore} from '../hooks/useFirestore'
 
 
-function Transactionform() {
+function Transactionform({uid}) {
     const [name,setname]=useState('')
     const [amount,setamount]=useState('')
+    const {response,adddocument}=useFirestore('transactions')
 
-    const handlesubmit=e=>{
+    const handlesubmit=(e)=>{
         e.preventDefault()
-        
-
-       console.log({name,amount})
+        adddocument({uid,name,amount})
     }
+
+
+    useEffect(()=>
+    {
+      if(response.success){
+        setname('')
+        setamount('')
+
+      }
+
+    },[response.success])
 
   return (
     <div>
@@ -25,7 +36,8 @@ function Transactionform() {
         <span>Amount:</span>
         <input type="number" value={amount} onChange={e=>setamount(e.target.value)} required />
     </label>
-    <button type='submit'>Add a transaction</button>
+    {!response.ispending && <button >Add a transaction</button>}
+      {response.ispending && <button disabled>Loading...</button>}
     </form>
 
 
