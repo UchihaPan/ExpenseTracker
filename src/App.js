@@ -1,5 +1,5 @@
 
-import { BrowserRouter as Router, Route, Link, Switch,Redirect} from "react-router-dom"
+import { BrowserRouter as Router, Route,  Switch,Redirect} from "react-router-dom"
 import Home from './pages/Home'
 import Signup from './pages/Signup'
 import Signin from './pages/Signin'

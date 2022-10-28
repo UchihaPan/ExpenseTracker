@@ -41,7 +41,7 @@ export const useLogout=()=>{
         }
       }, [])
 
-    return {logout,setpending,error}
+    return {logout,setpending,error,pending}
 
 
 

@@ -14,7 +14,7 @@ function Navbar() {
 
   const {logout}=useLogout()
   const context=useAuthcontext()
-  const {user,dispatch}=context
+  const {user}=context
 
   
 

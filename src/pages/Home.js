@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react'
+import React from 'react'
 
 import './Home.css'
 import Transactionform from './Transactionform'
@@ -11,7 +11,7 @@ import {useCollection} from '../hooks/useCollection'
 
 function Home() {
   const context=useAuthcontext()
-  const {user,dispatch}=context
+  const {user}=context
   const collection=useCollection('transactions',["uid","==",user.uid],["created_at","desc"])
 
   const {documents,error}=collection
